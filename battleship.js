@@ -4,13 +4,23 @@ const eqObjects = require('./eqObjects');
 const eqObj = eqObjects.eqObjects;
 
 const placeHit = function(boardObj, coord) {
+  let x = coord[0];
+  let y = coord[1];
+  let boardRef = boardObj.board;
   if (Array.isArray(coord)) {
-    if (boardObj.board[coord[1]][coord[0]] !== board.sym.water && boardObj.board[coord[1]][coord[0]] !== board.sym.miss) {
-      boardObj.board[coord[1]][coord[0]] = board.sym.hit;
-      console.log(boardObj.ships[ship.getIndexOfShipHit(boardObj, coord)].type);
-      console.log(ship.isSunk(boardObj, boardObj.ships[ship.getShipHit(boardObj, coord)]));
+    if (boardRef[y][x] !== board.sym.water && boardRef[y][x] !== board.sym.miss) {
+      let shipHit = boardObj.ships[ship.getIndexOfShipHit(boardObj, coord)];
+      boardRef[y][x] = board.sym.hit;
+      console.log(shipHit.type);
+      if (ship.isSunk(boardObj, shipHit)) {
+        for (let i = 0; i < shipHit.occupies.length; i++) {//mark as sunk on board
+          x = shipHit.occupies[i][0];
+          y = shipHit.occupies[i][1];
+          boardRef[y][x] = board.sym.sunk;
+        }
+      }
     } else {
-      boardObj.board[coord[1]][coord[0]] = board.sym.miss;
+      boardRef[y][x] = board.sym.miss;
     }
   }
 };
