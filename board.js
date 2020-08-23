@@ -1,3 +1,5 @@
+// const ship = require("./ship");
+
 const board = {
   sym: {
     water: '🟦',
@@ -14,6 +16,16 @@ const board = {
       }
     }
     return boardArr;
+  },
+  placeHit: function(boardObj, coord) {
+    if (Array.isArray(coord)) {
+      if (boardObj.board[coord[1]][coord[0]] !== this.sym.water && boardObj.board[coord[1]][coord[0]] !== this.sym.miss) {
+        ship.checkSunk(boardObj, coord);
+        boardObj.board[coord[1]][coord[0]] = this.sym.hit;
+      } else {
+        boardObj.board[coord[1]][coord[0]] = this.sym.miss;
+      }
+    }
   },
   printBoard: function(boardArr) {
     let rowTxt = '', boardTxt = '';

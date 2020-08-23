@@ -132,6 +132,16 @@ const ship = {
       }
     }
   },
+  isSunk: function(boardObj, ship) {
+    let sunk = true;
+    for (let i = 0; i < ship.occupies.length; i++) {
+      if (boardObj.board[ship.occupies[i][1]][ship.occupies[i][0]] === this.shipTypes[ship.type].sym) {
+        sunk = false;
+        break;
+      }
+    }
+    return sunk;
+  },
 };
 // ship.positionShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 2});
 // console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], 2).horizontal);
