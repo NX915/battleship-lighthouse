@@ -59,16 +59,16 @@ describe("randomCoord return an object {x:y} coordinate within the argument boar
   });
 });
 describe("placeShip will place ships into a random spot on given board if space allows", function() {
-  it("Will not place a destroyer size 2x1 (🔸) on a 1x1 empty default board (🟦)", () => {
+  it("Will not place a default destroyer size 2x1 (🔸) on a 1x1 empty default board (🟦)", () => {
     let testBoard = ['🟦'];
-    expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql(['🟦']);
+    expect(ship.placeShips(testBoard, {destroyer: 1}).board).to.eql(['🟦']);
   });
-  it("Will place a destroyer size 2x1 (🔸) on a 2x1 empty default board (🟦)", () => {
-    let testBoard = ['🟦', '🟦'];
-    expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql(['🔸', '🔸']);
+  it("Will place a default destroyer size 2x1 (🔸) on a 2x1 empty default board (🟦)", () => {
+    let testBoard = [['🟦', '🟦']];
+    expect(ship.placeShips(testBoard, {destroyer: 1}).board).to.eql([['🔸', '🔸']]);
   });
-  it("Will place a destroyer size 2x1 (🔸) on a 1x2 empty default board (🟦)", () => {
+  it("Will place a default destroyer size 2x1 (🔸) on a 1x2 empty default board (🟦)", () => {
     let testBoard = [['🟦'], ['🟦']];
-    expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql([['🔸'], ['🔸']]);
+    expect(ship.placeShips(testBoard, {destroyer: 1}).board).to.eql([['🔸'], ['🔸']]);
   });
 });

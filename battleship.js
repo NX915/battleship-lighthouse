@@ -15,9 +15,8 @@ const printBoard = function(boardArr) {
 };
 
 const battleship = function() {
-  const playerBoard = board.initBoard(10, 10, '🟦');
-  // const ships = placeShips(board);
-  printBoard(playerBoard);
+  const playerBoardObj = ship.placeShips(board.initBoard());
+  printBoard(playerBoardObj.board);
 };
 
 battleship();

@@ -16,7 +16,7 @@ const ship = {
     },
     submarine: {
       size: 3,
-      sym: '⚫️'
+      sym: '🟡'
     },
     destroyer: {
       size: 2,
@@ -71,6 +71,7 @@ const ship = {
         }
       }
     }
+    // console.log(`Size:${size}\nNumber of free vertical & horizontal spaces:${freeCoord.vertical.length}, ${freeCoord.horizontal.length}`);
     return freeCoord;
   },
   placeShipOnBoard: function(board, ship) {
@@ -92,7 +93,7 @@ const ship = {
   placeShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {
     const shipArr = [];
     let freeCoordObj;
-    let shipOrientation = this.getRandomMaxInt(1);
+    let shipOrientation;
     for (const shipTypeToPlace in shipsRequested) {
       for (let i = 0; i < shipsRequested[shipTypeToPlace]; i++) {
         freeCoordObj = this.getFreeCoord(boardArr, this.shipTypes[shipTypeToPlace].size);
@@ -102,6 +103,7 @@ const ship = {
           } else if (freeCoordObj.vertical.length === 0) {
             shipOrientation = 'horizontal';
           } else {
+            shipOrientation = this.getRandomMaxInt(1);
             shipOrientation === 0 ? shipOrientation = 'horizontal' : shipOrientation = 'vertical';
           }
           shipArr.push({
@@ -109,16 +111,16 @@ const ship = {
             coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
             orient: shipOrientation,
           });
-          console.log(shipArr);
           boardArr = this.placeShipOnBoard(boardArr, shipArr[shipArr.length - 1]);
         }
       }
     }
-    console.log(boardArr);
-    return boardArr;
+    // console.log(shipArr);
+    // console.log(boardArr);
+    return {board: boardArr, ships: shipArr};
   },
 };
-ship.placeShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 1});
+// ship.placeShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 2});
 // console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], 2).horizontal);
 // console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], 2).vertical);
 module.exports = ship;
