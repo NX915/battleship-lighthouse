@@ -134,14 +134,12 @@ const ship = {
     return -1;
   },
   isSunk: function(boardObj, ship) {
-    let sunk = true;
     for (let i = 0; i < ship.occupies.length; i++) {
       if (boardObj.board[ship.occupies[i][1]][ship.occupies[i][0]] === this.shipTypes[ship.type].sym) {
-        sunk = false;
-        break;
+        return false;
       }
     }
-    return sunk;
+    return true;
   },
 };
 // ship.positionShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 2});
