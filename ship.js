@@ -13,8 +13,22 @@ const ship = {
     submarine: 1,
     destroyer: 1,
   },
+  getRandomMaxInt: function(max) {
+    return Math.floor(Math.random() * (max + 1));
+  },
+  randomCoord: function(boardArr) {
+    const x = this.getRandomMaxInt(boardArr.length);
+    const y = this.getRandomMaxInt(boardArr[0].length);
+    return {x: x, y: y};
+  },
   placeShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {
-    
+    const shipArr = [];
+    for (const shipType in shipsRequested) {
+      for (let i = 0; i < shipsRequested[shipType]; i++) {
+        this.randomCoord(boardArr);
+      }
+    }
+    return boardArr;
   },
 };
 
