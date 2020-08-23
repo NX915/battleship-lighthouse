@@ -1,7 +1,7 @@
 const board = require('./board');
 const ship = require('./ship');
-const eqObjects = require('./eqObjects');
-const eqObj = eqObjects.eqObjects;
+// const eqObjects = require('./eqObjects');
+// const eqObj = eqObjects.eqObjects;
 
 const placeHit = function(boardObj, coord) {
   let x = coord[0];
