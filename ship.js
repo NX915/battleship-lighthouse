@@ -1,4 +1,6 @@
 const board = require("./board");
+const eqObjects = require('./eqObjects');
+const eqObj = eqObjects.eqObjects;
 
 const ship = {
   shipTypes: {
@@ -74,21 +76,23 @@ const ship = {
     // console.log(`Size:${size}\nNumber of free vertical & horizontal spaces:${freeCoord.vertical.length}, ${freeCoord.horizontal.length}`);
     return freeCoord;
   },
-  placeShipOnBoard: function(board, ship) {
-    const newBoard = [...board];
+  placeShipOnBoard: function(input) {
+    let board = input.board;
+    let ship = input.ships[input.ships.length - 1];
     let x = ship.coord[0];
     let y = ship.coord[1];
+    ship.occupies = [];
     let size = this.shipTypes[ship.type].size;
     let sym = this.shipTypes[ship.type].sym;
     for (let i = 0; i < size; i++) {
-      newBoard[y][x] = sym;
+      board[y][x] = sym;
+      ship.occupies.push([x, y]);
       if (ship.orient === 'horizontal') {
         x--;
       } else {
         y--;
       }
     }
-    return newBoard;
   },
   positionShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {
     const output = {board: [...boardArr], ships: []};
@@ -111,16 +115,22 @@ const ship = {
             coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
             orient: shipOrientation,
           });
-          output.board = this.placeShipOnBoard(output.board, output.ships[output.ships.length - 1]);
+          this.placeShipOnBoard(output);
         }
       }
     }
-    // console.log(shipArr);
-    // console.log(boardArr);
+    // console.log(output.ships[3].occupies);
     return output;
   },
-  isSunk: function(board, coord) {
-
+  getShipHit: function(boardObj, coord) {
+    let ships = boardObj.ships;
+    for (let i = 0; i < ships.length; i++) {
+      for (let j = 0; j < ships[i].occupies.length; j++) {
+        if (eqObj(ships[i].occupies[j], coord)) {
+          return i;
+        }
+      }
+    }
   },
 };
 // ship.positionShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 2});
