@@ -40,7 +40,7 @@ const ship = {
   },
   getFreeCoord: function(boardArr, size) {
     const freeCoord = {
-      horizontal: [],
+      horizontal: [],//[x: board[0][0], y: board[0]]
       vertical: [],
     };
     for (let i = 0; i < boardArr.length; i++) {
@@ -50,7 +50,7 @@ const ship = {
           if (lastFree === -1) {
             lastFree = j;
           } else if (j - lastFree >= size - 1) {
-            freeCoord.horizontal.push([i, j]);
+            freeCoord.horizontal.push([j, i]);
           }
         } else {
           lastFree = -1;
@@ -73,6 +73,22 @@ const ship = {
     }
     return freeCoord;
   },
+  placeShipOnBoard: function(board, ship) {
+    const newBoard = [...board];
+    let x = ship.coord[0];
+    let y = ship.coord[1];
+    let size = this.shipTypes[ship.type].size;
+    let sym = this.shipTypes[ship.type].sym;
+    for (let i = 0; i < size; i++) {
+      newBoard[y][x] = sym;
+      if (ship.orient === 'horizontal') {
+        x--;
+      } else {
+        y--;
+      }
+    }
+    return newBoard;
+  },
   placeShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {
     const shipArr = [];
     let freeCoordObj;
@@ -93,14 +109,16 @@ const ship = {
             coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
             orient: shipOrientation,
           });
+          console.log(shipArr);
+          boardArr = this.placeShipOnBoard(boardArr, shipArr[shipArr.length - 1]);
         }
       }
     }
-    console.log(shipArr);
+    console.log(boardArr);
     return boardArr;
   },
 };
 ship.placeShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 1});
-// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).horizontal);
-// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).vertical);
+// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], 2).horizontal);
+// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], 2).vertical);
 module.exports = ship;
