@@ -7,11 +7,12 @@ const placeHit = function(boardObj, coord) {
   let x = coord[0];
   let y = coord[1];
   let boardRef = boardObj.board;
+  let shipHit;
   if (Array.isArray(coord)) {
-    if (boardRef[y][x] !== board.sym.water && boardRef[y][x] !== board.sym.miss) {
-      let shipHit = boardObj.ships[ship.getIndexOfShipHit(boardObj, coord)];
+    shipHit = boardObj.ships[ship.getIndexOfShipHit(boardObj, coord)];
+    if (shipHit !== undefined) {
       boardRef[y][x] = board.sym.hit;
-      console.log(shipHit.type);
+      // console.log(shipHit.type);
       if (ship.isSunk(boardObj, shipHit)) {
         for (let i = 0; i < shipHit.occupies.length; i++) {//mark as sunk on board
           x = shipHit.occupies[i][0];
@@ -19,8 +20,10 @@ const placeHit = function(boardObj, coord) {
           boardRef[y][x] = board.sym.sunk;
         }
       }
+      return true;
     } else {
       boardRef[y][x] = board.sym.miss;
+      return false;
     }
   }
 };

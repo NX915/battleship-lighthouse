@@ -131,6 +131,7 @@ const ship = {
         }
       }
     }
+    return -1;
   },
   isSunk: function(boardObj, ship) {
     let sunk = true;
