@@ -28,4 +28,8 @@ describe("placeShip function", function() {
     let testBoard = ['🟦', '🟦'];
     assert.equal(ship.placeShips(testBoard, {destoryer: 1}), ['🔸', '🔸']);
   });
+  it("Should not place a destroyer size 2x1 (🔸) on a 1x1 empty default board (🟦)", () => {
+    let testBoard = ['🟦'];
+    assert.equal(ship.placeShips(testBoard, {destoryer: 1}), ['🟦']);
+  });
 });
