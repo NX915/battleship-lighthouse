@@ -1,3 +1,6 @@
+const board = require('./board');
+const ship = require('./ship');
+
 const printBoard = function(boardArr) {
   let rowTxt = '', boardTxt = '';
   for (let i = 0; i < boardArr.length; i++) {
@@ -11,23 +14,10 @@ const printBoard = function(boardArr) {
   return boardTxt;
 };
 
-const makeBoard = function(height = 10, width = 10, sym = '💦') {
-  const boardArr = [];
-  for (let i = 0; i < height; i++) {
-    boardArr.push([sym]);
-    for (let j = 0; j < width - 1; j++) {
-      boardArr[i].push(sym);
-    }
-  }
-  return boardArr;
-};
-
 const battleship = function() {
-  const board = makeBoard();
-  printBoard(board);
-
+  const playerBoard = board.initBoard(10, 10, '🟦');
+  // const ships = placeShips(board);
+  printBoard(playerBoard);
 };
 
 battleship();
-
-module.exports = makeBoard;
