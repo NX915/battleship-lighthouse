@@ -80,12 +80,20 @@ const ship = {
     for (const shipTypeToPlace in shipsRequested) {
       for (let i = 0; i < shipsRequested[shipTypeToPlace]; i++) {
         freeCoordObj = this.getFreeCoord(boardArr, this.shipTypes[shipTypeToPlace].size);
-        shipOrientation === 0 ? shipOrientation = 'horizontal' : shipOrientation = 'vertical';
-        shipArr.push({
-          type: shipTypeToPlace,
-          coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
-          orient: shipOrientation,
-        });
+        if (freeCoordObj.horizontal.length !== 0 || freeCoordObj.vertical.length !== 0) {
+          if (freeCoordObj.horizontal.length === 0) {
+            shipOrientation = 'vertical';
+          } else if (freeCoordObj.vertical.length === 0) {
+            shipOrientation = 'horizontal';
+          } else {
+            shipOrientation === 0 ? shipOrientation = 'horizontal' : shipOrientation = 'vertical';
+          }
+          shipArr.push({
+            type: shipTypeToPlace,
+            coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
+            orient: shipOrientation,
+          });
+        }
       }
     }
     console.log(shipArr);
