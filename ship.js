@@ -1,12 +1,27 @@
 const board = require("./board");
 
 const ship = {
-  shipSize: {
-    carrier: 5,
-    battleship: 4,
-    cruiser: 3,
-    submarine: 3,
-    destroyer: 2,
+  shipTypes: {
+    carrier: {
+      size: 5,
+      sym: '🟪',
+    },
+    battleship: {
+      size: 4,
+      sym: '🟥'
+    },
+    cruiser: {
+      size: 3,
+      sym: '🟢'
+    },
+    submarine: {
+      size: 3,
+      sym: '⚫️'
+    },
+    destroyer: {
+      size: 2,
+      sym: '🔸'
+    }
   },
   shipsDefaultCount: {
     carrier: 1,
@@ -35,7 +50,7 @@ const ship = {
           if (lastFree === -1) {
             lastFree = j;
           } else if (j - lastFree >= size - 1) {
-            freeCoord.horizontal.push([[i],[j]]);
+            freeCoord.horizontal.push([i, j]);
           }
         } else {
           lastFree = -1;
@@ -49,7 +64,7 @@ const ship = {
           if (lastFree === -1) {
             lastFree = j;
           } else if (j - lastFree >= size - 1) {
-            freeCoord.vertical.push([[i],[j]]);
+            freeCoord.vertical.push([i, j]);
           }
         } else {
           lastFree = -1;
@@ -60,17 +75,24 @@ const ship = {
   },
   placeShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {
     const shipArr = [];
-    let shipOrientation;
-    for (const shipType in shipsRequested) {
-      for (let i = 0; i < shipsRequested[shipType]; i++) {
-        this.getFreeCoord(boardArr, this.shipSize[shipsRequested]);
-        // shipArr.push({});
+    let freeCoordObj;
+    let shipOrientation = this.getRandomMaxInt(1);
+    for (const shipTypeToPlace in shipsRequested) {
+      for (let i = 0; i < shipsRequested[shipTypeToPlace]; i++) {
+        freeCoordObj = this.getFreeCoord(boardArr, this.shipTypes[shipTypeToPlace].size);
+        shipOrientation === 0 ? shipOrientation = 'horizontal' : shipOrientation = 'vertical';
+        shipArr.push({
+          type: shipTypeToPlace,
+          coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
+          orient: shipOrientation,
+        });
       }
     }
+    console.log(shipArr);
     return boardArr;
   },
 };
-
-console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).horizontal);
-console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).vertical);
+ship.placeShips([['🟦', '🟦', '🟦'], ['🟦', '🟦', '🟦', '🟦']], {destroyer: 1});
+// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).horizontal);
+// console.log(ship.getFreeCoord([['🟦', '🟦', '🟦'], ['🔶', '🟦', '🟦', '🟦']], 2).vertical);
 module.exports = ship;
