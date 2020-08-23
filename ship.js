@@ -4,11 +4,11 @@ const ship = {
   shipTypes: {
     carrier: {
       size: 5,
-      sym: '🟪',
+      sym: '🟣',
     },
     battleship: {
       size: 4,
-      sym: '🟥'
+      sym: '🟤'
     },
     cruiser: {
       size: 3,
@@ -46,7 +46,7 @@ const ship = {
     for (let i = 0; i < boardArr.length; i++) {
       let lastFree = -1;
       for (let j = 0; j < boardArr[i].length; j++) {//check horizontal spots
-        if (boardArr[i][j] === '🟦') {
+        if (boardArr[i][j] === board.sym.water) {
           if (lastFree === -1) {
             lastFree = j;
           } else if (j - lastFree >= size - 1) {
@@ -60,7 +60,7 @@ const ship = {
     for (let i = 0; i < boardArr[0].length; i++) {
       let lastFree = -1;
       for (let j = 0; j < boardArr.length; j++) {//check vertical spots
-        if (boardArr[j][i] === '🟦') {
+        if (boardArr[j][i] === board.sym.water) {
           if (lastFree === -1) {
             lastFree = j;
           } else if (j - lastFree >= size - 1) {
