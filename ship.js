@@ -17,8 +17,8 @@ const ship = {
     return Math.floor(Math.random() * (max + 1));
   },
   randomCoord: function(boardArr) {
-    const x = this.getRandomMaxInt(boardArr.length);
-    const y = this.getRandomMaxInt(boardArr[0].length);
+    const x = this.getRandomMaxInt(boardArr[0].length);
+    const y = this.getRandomMaxInt(boardArr.length);
     return {x: x, y: y};
   },
   placeShips: function(boardArr, shipsRequested = this.shipsDefaultCount) {

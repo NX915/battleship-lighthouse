@@ -26,20 +26,36 @@ describe("initBoard function create an nested array representing a 2D game board
 });
 describe("randomCoord return an object {x:y} coordinate within the argument board dimention", function() {
   it("return x between 0 and 1 with board size 1x1", () => {
-    let testBoard = ['🟦'];
+    let testBoard = [['🟦']];
     expect(ship.randomCoord(testBoard).x).to.within(0, 1);
   });
   it("return y between 0 and 1 with board size 1x1", () => {
-    let testBoard = ['🟦'];
+    let testBoard = [['🟦']];
     expect(ship.randomCoord(testBoard).y).to.within(0, 1);
   });
-  it("return x between 0 and 5 with board size 1x5", () => {
-    let testBoard = ['🟦', '🟦', '🟦', '🟦', '🟦'];
+  it("return x between 0 and 2 with board size 2x2", () => {
+    let testBoard = [['🟦', '🟦'], ['🟦', '🟦']];
+    expect(ship.randomCoord(testBoard).x).to.within(0, 2);
+  });
+  it("return y between 0 and 2 with board size 2x2", () => {
+    let testBoard = [['🟦', '🟦'], ['🟦', '🟦']];
+    expect(ship.randomCoord(testBoard).y).to.within(0, 2);
+  });
+  it("return x between 0 and 5 with board size 5x1", () => {
+    let testBoard = [['🟦', '🟦', '🟦', '🟦', '🟦']];
     expect(ship.randomCoord(testBoard).x).to.within(0, 5);
   });
-  it("return y between 0 and 1 with board size 1x5", () => {
-    let testBoard = ['🟦', '🟦', '🟦', '🟦', '🟦'];
+  it("return y between 0 and 1 with board size 5x1", () => {
+    let testBoard = [['🟦', '🟦', '🟦', '🟦', '🟦']];
     expect(ship.randomCoord(testBoard).y).to.within(0, 1);
+  });
+  it("return x between 0 and 1 with board size 1x5", () => {
+    let testBoard = [['🟦'], ['🟦'], ['🟦'], ['🟦'], ['🟦']];
+    expect(ship.randomCoord(testBoard).x).to.within(0, 1);
+  });
+  it("return y between 0 and 5 with board size 1x5", () => {
+    let testBoard = [['🟦'], ['🟦'], ['🟦'], ['🟦'], ['🟦']];
+    expect(ship.randomCoord(testBoard).y).to.within(0, 5);
   });
 });
 describe("placeShip will place ships into a random spot on given board if space allows", function() {
@@ -47,11 +63,11 @@ describe("placeShip will place ships into a random spot on given board if space 
     let testBoard = ['🟦'];
     expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql(['🟦']);
   });
-  it("Will place a destroyer size 2x1 (🔸) on a 1x2 empty default board (🟦)", () => {
+  it("Will place a destroyer size 2x1 (🔸) on a 2x1 empty default board (🟦)", () => {
     let testBoard = ['🟦', '🟦'];
     expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql(['🔸', '🔸']);
   });
-  it("Will place a destroyer size 2x1 (🔸) on a 2x1 empty default board (🟦)", () => {
+  it("Will place a destroyer size 2x1 (🔸) on a 1x2 empty default board (🟦)", () => {
     let testBoard = [['🟦'], ['🟦']];
     expect(ship.placeShips(testBoard, {destoryer: 1})).to.eql([['🔸'], ['🔸']]);
   });
