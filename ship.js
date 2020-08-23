@@ -126,10 +126,11 @@ const ship = {
             type: shipTypeToPlace,
             coord: freeCoordObj[shipOrientation][this.getRandomMaxInt(freeCoordObj[shipOrientation].length - 1)],
             orient: shipOrientation,
+            hits: [],
             sunk: false,
           });
           this.setShipOccupies(output);
-          this.placeShipOnBoard(output);
+          // this.placeShipOnBoard(output);
         }
       }
     }
@@ -141,6 +142,7 @@ const ship = {
     for (let i = 0; i < ships.length; i++) {
       for (let j = 0; j < ships[i].occupies.length; j++) {
         if (eqObj(ships[i].occupies[j], coord)) {
+          ships[i].hits.push(ships[i].occupies[j]);
           return i;
         }
       }
@@ -149,7 +151,7 @@ const ship = {
   },
   isSunk: function(boardObj, ship) {
     for (let i = 0; i < ship.occupies.length; i++) {
-      if (boardObj.board[ship.occupies[i][1]][ship.occupies[i][0]] === this.shipTypes[ship.type].sym) {
+      if (boardObj[ship.occupies[i][1]][ship.occupies[i][0]] === this.shipTypes[ship.type].sym) {
         ship.sunk = false;
         return false;
       }
