@@ -7,7 +7,7 @@ const placeHit = function(boardObj, coord) {
   if (Array.isArray(coord)) {
     if (boardObj.board[coord[1]][coord[0]] !== board.sym.water && boardObj.board[coord[1]][coord[0]] !== board.sym.miss) {
       boardObj.board[coord[1]][coord[0]] = board.sym.hit;
-      console.log(boardObj.ships[ship.getShipHit(boardObj, coord)].type);
+      console.log(boardObj.ships[ship.getIndexOfShipHit(boardObj, coord)].type);
       console.log(ship.isSunk(boardObj, boardObj.ships[ship.getShipHit(boardObj, coord)]));
     } else {
       boardObj.board[coord[1]][coord[0]] = board.sym.miss;

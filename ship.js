@@ -122,7 +122,7 @@ const ship = {
     // console.log(output.ships[3].occupies);
     return output;
   },
-  getShipHit: function(boardObj, coord) {
+  getIndexOfShipHit: function(boardObj, coord) {
     let ships = boardObj.ships;
     for (let i = 0; i < ships.length; i++) {
       for (let j = 0; j < ships[i].occupies.length; j++) {
