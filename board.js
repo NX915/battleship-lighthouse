@@ -1,5 +1,11 @@
 const board = {
-  initBoard: function(height = 10, width = 10, sym = '🟦') {
+  sym: {
+    water: '🟦',
+    miss: '⬜️',
+    hit: '🟥',
+    sunk: '⬛️',
+  },
+  initBoard: function(height = 10, width = 10, sym = this.sym.water) {
     const boardArr = [];
     for (let i = 0; i < height; i++) {
       boardArr.push([sym]);
