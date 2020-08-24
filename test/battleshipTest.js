@@ -1,6 +1,6 @@
 const chai = require('chai');
 const assert = chai.assert;
-const expect = chai.expect;
+const {expect} = require('chai');
 const board = require('../board');
 const ship = require('../ship');
 const waterSym = board.sym.water;
