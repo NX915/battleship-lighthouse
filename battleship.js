@@ -37,8 +37,6 @@ const battleship = function() {
   };
   const enemyBoardObj = ship.positionShips(board.initBoard());
   const playerBoardObj = ship.positionShips(board.initBoard());
-  ship.placeShipOnBoard(playerBoardObj);
-  ship.placeShipOnBoard(enemyBoardObj);
   placeHit(playerBoardObj,[0,0]);
   placeHit(playerBoardObj,[0,1]);
   placeHit(playerBoardObj,[0,2]);
@@ -69,8 +67,10 @@ const battleship = function() {
   placeHit(enemyBoardObj,[5,4]);
   placeHit(enemyBoardObj,[4,5]);
   placeHit(enemyBoardObj,[5,5]);
-  board.printBoard(playerBoardObj.board);
   board.printBoard(enemyBoardObj.board);
+  board.printBoard(playerBoardObj.board);
+  board.printShiplessBoard(enemyBoardObj.board);
+  board.printShiplessBoard(playerBoardObj.board);
 };
 
 battleship();

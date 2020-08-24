@@ -60,16 +60,44 @@ describe("randomCoord return an object {x:y} coordinate within the argument boar
   });
 });
 describe("placeShip will place ships into a random spot on given board if space allows", function() {
-  it(`Will not place a default destroyer size 2x1 (🔸) on a 1x1 empty default board (${waterSym})`, () => {
+  const destroyerSym = ship.shipTypes.destroyer.sym;
+  const dd = destroyerSym + destroyerSym;
+  const cruiserSym = ship.shipTypes.cruiser.sym;
+  const ca = cruiserSym + cruiserSym + cruiserSym;
+  it(`Will not place a destroyer (${dd}) into \n\t${waterSym}`, () => {
     let testBoard = [waterSym];
     expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([waterSym]);
   });
-  it(`Will place a default destroyer size 2x1 (🔸) on a 2x1 empty default board (${waterSym})`, () => {
-    let testBoard = [[waterSym, waterSym]];
-    expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([['🔸', '🔸']]);
+  it(`Will not place a destroyer (${dd}) into \n\t${ca}\n\t${waterSym}`, () => {
+    let testBoard = [[cruiserSym, cruiserSym, cruiserSym], [waterSym]];
+    expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([[cruiserSym, cruiserSym, cruiserSym], [waterSym]]);
   });
-  it(`Will place a default destroyer size 2x1 (🔸) on a 1x2 empty default board (${waterSym})`, () => {
+  it(`Will place a destroyer (${dd}) into \n\t${waterSym}${waterSym}`, () => {
+    let testBoard = [[waterSym, waterSym]];
+    expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([[destroyerSym, destroyerSym]]);
+  });
+  it(`Will place a destroyer (${dd}) into \n\t${waterSym}\n\t${waterSym}`, () => {
     let testBoard = [[waterSym], [waterSym]];
-    expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([['🔸'], ['🔸']]);
+    expect(ship.positionShips(testBoard, {destroyer: 1}).board).to.eql([[destroyerSym], [destroyerSym]]);
+  });
+  it(`Will not place a cruiser (${ca}) into \n\t${waterSym}${waterSym}`, () => {
+    let testBoard = [[waterSym, waterSym]];
+    expect(ship.positionShips(testBoard, {cruiser: 1}).board).to.eql([[waterSym, waterSym]]);
+  });
+  it(`Will not place a cruiser (${ca}) into \n\t${waterSym}\n\t${waterSym}`, () => {
+    let testBoard = [[waterSym], [waterSym]];
+    expect(ship.positionShips(testBoard, {cruiser: 1}).board).to.eql([[waterSym], [waterSym]]);
+  });
+  it(`Will place a cruiser (${ca}) into \n\t${waterSym}${waterSym}${waterSym}`, () => {
+    let testBoard = [[waterSym, waterSym, waterSym]];
+    expect(ship.positionShips(testBoard, {cruiser: 1}).board).to.eql([[cruiserSym, cruiserSym, cruiserSym]]);
+  });
+  it(`Will place a cruiser (${ca}) into \n\t${waterSym}\n\t${waterSym}\n\t${waterSym}`, () => {
+    let testBoard = [[waterSym], [waterSym], [waterSym]];
+    expect(ship.positionShips(testBoard, {cruiser: 1}).board).to.eql([[cruiserSym], [cruiserSym], [cruiserSym]]);
+  });
+  it(`Will not place a (${ca}) into \n\t${waterSym}${waterSym}${destroyerSym}\n\t${waterSym}${waterSym}${destroyerSym}`, () => {
+    let testBoard = [[waterSym, waterSym, destroyerSym], [waterSym, waterSym, destroyerSym]];
+    expect(ship.positionShips(testBoard, {cruiser: 1}).board).to.eql([[waterSym, waterSym, destroyerSym], [waterSym, waterSym, destroyerSym]]);
   });
 });

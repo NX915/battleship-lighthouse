@@ -130,7 +130,7 @@ const ship = {
             sunk: false,
           });
           this.setShipOccupies(output);
-          // this.placeShipOnBoard(output);
+          this.placeShipOnBoard(output);
         }
       }
     }
