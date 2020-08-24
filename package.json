@@ -1,0 +1,28 @@
+{
+  "name": "battleship-lighthouse",
+  "version": "1.0.0",
+  "description": "",
+  "main": "battleship.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^8.1.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NX915/battleship-lighthouse.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NX915/battleship-lighthouse/issues"
+  },
+  "homepage": "https://github.com/NX915/battleship-lighthouse#readme"
+}
