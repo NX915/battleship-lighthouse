@@ -41,5 +41,20 @@ const eqObjects = function(object1, object2) {
     return false;
   }
 };
+const transpose = function(arr) {
+  const output = [];
+  for (let i = 0; i < arr[0].length; i++) {
+    let newRow = [];
+    for (let j = 0; j < arr.length; j++) {
+      newRow.push(arr[j][i]);
+    }
+    output.push(newRow);
+  }
+  return output;
+};
+// console.log(transpose([[1,2],[3,4]]));
+const getRandomMaxInt = function(max) {
+  return Math.floor(Math.random() * (max + 1));
+};
 
-module.exports.eqObjects = eqObjects;
+module.exports = { eqObjects, getRandomMaxInt };
